@@ -13,44 +13,28 @@
 \usepackage[slantfont,boldfont]{xeCJK}
 \usepackage{xcolor}  % replace by the encoding you are using
 
-\usepackage{ifplatform} % 判断平台
-
 
 % \setmainfont{Tahoma}
 \setmainfont{Times New Roman}  % 缺省英文字体.serif是有衬线字体sans serif无衬线字体
 
-\ifwindows
-  % Windows 下使用的代码
-  \setCJKmainfont[ItalicFont=KaiTi, BoldFont=SimHei]{SimSun}  % 衬线字体 缺省中文字体为
-  \setCJKsansfont{SimSun}
-  \setmonofont{FangSong}                 % 等宽字体: FangSong, Consolas
-\fi
+% macOS 字体设置
+\setCJKmainfont[ItalicFont={Kai}, BoldFont={Hei}]{STSong}  % 衬线字体 缺省中文字体
+\setCJKsansfont{STSong}
+\setCJKmonofont{STFangsong}  % 中文等宽字体
 
-\ifmacosx
-  % macOS 下使用的代码
-  \setCJKmainfont[ItalicFont={Kai}, BoldFont={Hei}]{STSong}  % 衬线字体 缺省中文字体为
-  \setCJKsansfont{STSong}
-  \setCJKmonofont{STFangsong}  % 中文等宽字体
-\fi
-
-
-%-----------------------xeCJK下设置中文字体------------------------------%
-\setCJKfamilyfont{song}{SimSun}  % 宋体 song
+%-----------------------xeCJK下设置中文字体（macOS）------------------------------%
+\setCJKfamilyfont{song}{Songti SC}  % 宋体 song
 \newcommand{\song}{\CJKfamily{song}}
-\setCJKfamilyfont{fs}{FangSong_GB2312}  % 仿宋2312 fs
+\setCJKfamilyfont{fs}{STFangsong}  % 仿宋 fs
 \newcommand{\fs}{\CJKfamily{fs}}
-\setCJKfamilyfont{yh}{Microsoft YaHei}  % 微软雅黑 yh
+\setCJKfamilyfont{yh}{PingFang SC}  % 苹方 yh
 \newcommand{\yh}{\CJKfamily{yh}}
-\setCJKfamilyfont{hei}{SimHei}  % 黑体  hei
+\setCJKfamilyfont{hei}{Heiti SC}  % 黑体 hei
 \newcommand{\hei}{\CJKfamily{hei}}
-\setCJKfamilyfont{hwxh}{STXihei}  % 华文细黑  hwxh
+\setCJKfamilyfont{hwxh}{STHeiti}  % 华文黑体 hwxh
 \newcommand{\hwxh}{\CJKfamily{hwxh}}
-\setCJKfamilyfont{asong}{Adobe Song Std}  % Adobe 宋体  asong
-\newcommand{\asong}{\CJKfamily{asong}}
-\setCJKfamilyfont{ahei}{Adobe Heiti Std}  % Adobe 黑体  ahei
-\newcommand{\ahei}{\CJKfamily{ahei}}
-\setCJKfamilyfont{akai}{Adobe Kaiti Std}  % Adobe 楷体  akai
-\newcommand{\akai}{\CJKfamily{akai}}
+\setCJKfamilyfont{kai}{Kaiti SC}  % 楷体 kai
+\newcommand{\kai}{\CJKfamily{kai}}
 
 
 %------------------------------设置字体大小------------------------%
@@ -146,7 +130,7 @@
 \subsection{开源项目}
 \cvline{markvis}{在 markdown 中直接生成可视化图表的插件
   \emph{https://markvis.js.org} \textbf{GitHub 1000 stars}}
-\cvline{netjsongraph.js}{用力导向图可视化出无线路由图谱数据 \emph{https://github.com/netjson/netjsongraph.js}}
+\cvline{netjsongraph\-.js}{用力导向图可视化出无线路由图谱数据 \emph{https://github.com/netjson/netjsongraph.js}}
 \cvline{typing}{Hexo 静态博客主题 \emph{https://github.com/geekplux/hexo-theme-typing}}
 \cvline{UnityVis}{Unity 中的基本可视化图表 \emph{https://github.com/geekplux/Basic-Visualization-in-Unity}}
 \section{技能}
