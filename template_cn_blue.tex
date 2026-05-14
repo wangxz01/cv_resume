@@ -11,18 +11,18 @@
 
 \usepackage{fontspec,xunicode}
 \usepackage[slantfont,boldfont]{xeCJK}
-\usepackage{xcolor}  % replace by the encoding you are using
+\usepackage{xcolor}  % 颜色支持
 
 
 % \setmainfont{Tahoma}
-\setmainfont{Times New Roman}  % 缺省英文字体.serif是有衬线字体sans serif无衬线字体
+\setmainfont{Times New Roman}  % 缺省英文字体；serif 为衬线字体，sans serif 为无衬线字体
 
 % macOS 字体设置
 \setCJKmainfont[ItalicFont={Kai}, BoldFont={Hei}]{STSong}  % 衬线字体 缺省中文字体
 \setCJKsansfont{STSong}
 \setCJKmonofont{STFangsong}  % 中文等宽字体
 
-%-----------------------xeCJK下设置中文字体（macOS）------------------------------%
+%-----------------------xeCJK 下设置中文字体（macOS）------------------------------%
 \setCJKfamilyfont{song}{Songti SC}  % 宋体 song
 \newcommand{\song}{\CJKfamily{song}}
 \setCJKfamilyfont{fs}{STFangsong}  % 仿宋 fs
@@ -58,45 +58,47 @@
 % \defaultfontfeatures{Mapping=tex-text}
 % \XeTeXlinebreaklocale "zh"
 % \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
-% moderncv themes
-\moderncvtheme[blue]{classic}  % optional argument are 'blue' (default), 'orange', 'red', 'green', 'grey' and 'roman' (for roman fonts, instead of sans serif fonts)
-% \moderncvtheme[green]{classic}  % idem
+% moderncv 主题
+\moderncvtheme[blue]{classic}  % 颜色可选 'blue'（默认）、'orange'、'red'、'green'、'grey'，或 'roman'（使用罗马字体）
+% \moderncvtheme[green]{classic}  % 同上
 % \moderncvtheme[blue,roman]{hht}
-% character encoding
+% 字符编码
 
 
 
-% adjust the page margins
+% 调整页面边距
 \usepackage[scale=0.9]{geometry}
-% \setlength{\hintscolumnwidth}{3cm}  % if you want to change the width of the column with the dates
-% \AtBeginDocument{\setlength{\maketitlenamewidth}{6cm}}  % only for the classic theme, if you want to change the width of your name placeholder (to leave more space for your address details
-\AtBeginDocument{\recomputelengths}  % required when changes are made to page layout lengths
+% \setlength{\hintscolumnwidth}{3cm}  % 如需调整左侧日期栏宽度可取消注释
+% \AtBeginDocument{\setlength{\maketitlenamewidth}{6cm}}  % 仅 classic 主题有效，用于调整姓名占位宽度（为右侧联系信息留出更多空间）
+\AtBeginDocument{\recomputelengths}  % 修改页面尺寸相关参数后必须调用
 
-% personal data
-\firstname{三}
-\familyname{张}
-\title{SanZhang}  % optional, remove the line if not wanted
-% \address{杭州}{}  % optional, remove the line if not wanted
-\address{1990/11/11}{}  % optional, remove the line if not wanted
-\mobile{18888888888}  % optional, remove the line if not wanted
-% \fax{fax (optional)}  % optional, remove the line if not wanted
-\email{me@resume.com}  % optional, remove the line if not wanted
-\homepage{Blog: http://geekplux.com}  % optional, remove the line if not wanted
-\social[github]{GitHub: https://github.com/geekplux}
+% 个人信息
+% 中文简历不区分姓与名，直接把完整姓名填入 \firstname 即可，
+% \familyname 留空。moderncv 内部需要这两个字段同时存在。
+\firstname{张三}                 % 完整姓名
+\familyname{}                    % 留空（moderncv 内部需要此字段）
+\title{SanZhang}                 % 头衔 / 拼音名，不需要可注释本行
+% \address{杭州}{}                % 地址，不需要可注释本行
+\address{1990/11/11}{}           % 此处用于填出生日期，不需要可注释本行
+\mobile{18888888888}             % 手机号，不需要可注释本行
+% \fax{fax (optional)}           % 传真，不需要可注释本行
+\email{me@resume.com}            % 邮箱，不需要可注释本行
+\homepage{Blog: http://geekplux.com}  % 主页 / 博客，不需要可注释本行
+\social[github]{GitHub: https://github.com/geekplux}  % GitHub 主页
 \extrainfo{%
   LinkedIn: https://cn.linkedin.com/in/xxx \\
   WeChat: xxxx \\
   QQ: 123456
 }
 
-\photo[64pt]{avatar.png}  % '64pt' is the height the picture must be resized to and 'picture' is the name of the picture file; optional, remove the line if not wanted
-% \quote{China\TeX 您的LaTeX乐园，TeX\&\LaTeX 王国}  % optional, remove the line if not wante
+\photo[64pt]{avatar.png}  % 头像；'64pt' 为缩放后的高度，第二个参数是图片文件名。不需要头像可注释本行
+% \quote{China\TeX 您的LaTeX乐园，TeX\&\LaTeX 王国}  % 个性签名 / 引言，不需要可注释本行
 
-% \nopagenumbers{}  % uncomment to suppress automatic page numbering for CVs longer than one page
+% \nopagenumbers{}  % 当简历超过一页时取消注释可关闭自动页码
 
 
 %----------------------------------------------------------------------------------
-%            content
+%            正文内容
 %----------------------------------------------------------------------------------
 \begin{document}
 \maketitle
@@ -114,14 +116,14 @@
   比较好，来凑字数吧来凑字数吧来凑字数吧。出色的完成了凑字数的工作，并获得了最佳
   凑字数员工奖}
 \section{教育经历}
-\cventry{11.09-15.06}{本科}{尼姑庵大学}{计算机科学与技术}{}{}  % arguments 3 to 6 are optional
+\cventry{11.09-15.06}{本科}{尼姑庵大学}{计算机科学与技术}{}{}  % 第 3-6 个参数可选
 \cvlistitem{最快编程大师一等奖}
 \cvlistitem{最强编程大师金奖}
 \cvlistitem{第 x 届「编程杯」gayhub 赛区一等奖}
 \cvlistitem{国家奖学金/三好学生/学生会主席/\emph{获得女朋友一个}}
 \cventry{15.09-18.06}{硕士}{和尚庙大学}{软件工程}{实验室 XXX 导师 XXX}{主要研究了
   人工智能，图形学，编译原理，机械键盘的拆装，快递包装的暴力拆解，颈椎与视觉保
-  养，抹平小腹，治疗腰椎间盘突出}  % arguments 3 to 6 are optional
+  养，抹平小腹，治疗腰椎间盘突出}  % 第 3-6 个参数可选
 \section{项目}
 \subsection{科研项目}
 \cvline{FFF-TNT}{建立深度学习模型，通过训练单身狗愤怒指数，预测 TNT 威力值，达到
@@ -143,49 +145,50 @@
 \section{Publications}
 \cvline{已录用}{张三，李四，王麻子 基于 latex 的简历凑字数研究[C]// CVChina. 2017.}
 
-% \subsection{Vocational}
-% \cventry{year--year}{Job title}{Employer}{City}{}{Description}  % arguments 3 to 6 are optional
-% \cventry{year--year}{Job title}{Employer}{City}{}{Description}  % arguments 3 to 6 are optional
-% \subsection{Miscellaneous}
-% \cventry{year--year}{Job title}{Employer}{City}{}{Description line 1\newline{}Description line 2}% arguments 3 to 6 are optional
+% 以下为可选章节示例，需要时取消注释即可启用
+% \subsection{职业经历}
+% \cventry{年份--年份}{职位}{雇主}{城市}{}{描述}  % 第 3-6 个参数可选
+% \cventry{年份--年份}{职位}{雇主}{城市}{}{描述}  % 第 3-6 个参数可选
+% \subsection{其他经历}
+% \cventry{年份--年份}{职位}{雇主}{城市}{}{描述第一行\newline{}描述第二行}  % 第 3-6 个参数可选
 
-% \section{Languages}
-% \cvlanguage{language 1}{Skill level}{Comment}
-% \cvlanguage{language 2}{Skill level}{Comment}
-% \cvlanguage{language 3}{Skill level}{Comment}
+% \section{语言}
+% \cvlanguage{语言 1}{熟练程度}{备注}
+% \cvlanguage{语言 2}{熟练程度}{备注}
+% \cvlanguage{语言 3}{熟练程度}{备注}
 
-% \section{Computer skills}
-% \cvcomputer{category 1}{XXX, YYY, ZZZ}{category 4}{XXX, YYY, ZZZ}
-% \cvcomputer{category 2}{XXX, YYY, ZZZ}{category 5}{XXX, YYY, ZZZ}
-% \cvcomputer{category 3}{XXX, YYY, ZZZ}{category 6}{XXX, YYY, ZZZ}
+% \section{计算机技能}
+% \cvcomputer{类别 1}{XXX, YYY, ZZZ}{类别 4}{XXX, YYY, ZZZ}
+% \cvcomputer{类别 2}{XXX, YYY, ZZZ}{类别 5}{XXX, YYY, ZZZ}
+% \cvcomputer{类别 3}{XXX, YYY, ZZZ}{类别 6}{XXX, YYY, ZZZ}
 
-% \section{Interests}
+% \section{兴趣爱好}
 % \cvline{篮球}{\small 体力与技巧}
-% \cvline{hobby 2}{\small Description}
-% \cvline{hobby 3}{\small Description}
+% \cvline{爱好 2}{\small 描述}
+% \cvline{爱好 3}{\small 描述}
 
-% \renewcommand{\listitemsymbol}{-}  % change the symbol for lists
+% \renewcommand{\listitemsymbol}{-}  % 修改列表项符号
 
-% \section{Extra 1}
-% \cvlistitem{Item 1}
-% \cvlistitem{Item 2}
-% \cvlistitem[+]{Item 3}  % optional other symbol% XeLaTeX can use any Mac OS X font. See the setromanfont command below.
-% Input to XeLaTeX is full Unicode, so Unicode characters can be typed directly into the source.
+% \section{额外章节 1}
+% \cvlistitem{项目 1}
+% \cvlistitem{项目 2}
+% \cvlistitem[+]{项目 3}  % 自定义列表符号
+% XeLaTeX 支持任意 macOS 字体，详见上文 \setromanfont 命令
+% XeLaTeX 输入支持完整 Unicode，可直接输入 Unicode 字符
 
-% The next lines tell TeXShop to typeset with xelatex, and to open and save the source with Unicode encoding.
-
+% 以下两行用于告诉 TeXShop 使用 xelatex 编译，并使用 UTF-8 编码读写源文件
 % !TEX TS-program = xelatex
 % !TEX encoding = UTF-8 Unicode
 
-% \section{Extra 2}
-% \cvlistdoubleitem[\Neutral]{Item 1}{Item 4}
-% \cvlistdoubleitem[\Neutral]{Item 2}{Item 5}
-% \cvlistdoubleitem[\Neutral]{Item 3}{}
+% \section{额外章节 2}
+% \cvlistdoubleitem[\Neutral]{项目 1}{项目 4}
+% \cvlistdoubleitem[\Neutral]{项目 2}{项目 5}
+% \cvlistdoubleitem[\Neutral]{项目 3}{}
 
-%% Publications from a BibTeX file
+%% 从 BibTeX 文件导入论文列表
 % \nocite{*}
 % \bibliographystyle{plain}
-% \bibliography{publications}  % 'publications' is the name of a BibTeX file
+% \bibliography{publications}  % 'publications' 是 BibTeX 文件名
 
 % \begin{thebibliography}{}
 % \bibitem[]{} 移动增强现实可视化综述[C]. ChinaVis 2017.
