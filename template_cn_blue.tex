@@ -72,6 +72,11 @@
 % \AtBeginDocument{\setlength{\maketitlenamewidth}{6cm}}  % 仅 classic 主题有效，用于调整姓名占位宽度（为右侧联系信息留出更多空间）
 \AtBeginDocument{\recomputelengths}  % 修改页面尺寸相关参数后必须调用
 
+% 辅助宏：用于 \cventry 第 1 个参数（日期栏）。当日期过长导致自动换行不美观时，
+% 可显式拆成两行，例如 \cventry{\twoline{2027.09-}{2028.09}}{...}
+% 使用 tabular[t] 顶部对齐，让右栏正文与日期第一行对齐而非第二行
+\newcommand*{\twoline}[2]{\begin{tabular}[t]{@{}r@{}}#1\\#2\end{tabular}}
+
 % 个人信息
 % 中文简历不区分姓与名，直接把完整姓名填入 \firstname 即可，
 % \familyname 留空。moderncv 内部需要这两个字段同时存在。
@@ -105,7 +110,7 @@
 \vspace*{-14mm}
 
 \section{工作经历}
-\cventry{17.01-17.12}{不长不短的公司名称}{可爱的项目}{https://keaidexiangmu.com}{}{工作中，
+\cventry{\twoline{17.01-}{17.12}}{不长不短的公司名称}{可爱的项目}{https://keaidexiangmu.com}{}{工作中，
   我负责了 xxx 的开发和维护，运用 yyy 技术解决了 zzz 的重大问题。积极参与开源社
   区贡献}
 \cventry{16.01-16.12}{好长的公司名称}{有趣的项
