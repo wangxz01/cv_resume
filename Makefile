@@ -1,4 +1,6 @@
-all:
+.PHONY: all clean
+
+all: clean
 	xelatex template_cn_blue.tex
 	xelatex template_cn_blue.tex
 
