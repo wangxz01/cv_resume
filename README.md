@@ -1,126 +1,141 @@
-# cv_resume
+# cv_resume · Typst Modern SaaS Edition
 
-> 一份开箱即用、专为 macOS 优化的中文 LaTeX 简历模板。
-
-基于 [ModernCV](https://github.com/moderncv/moderncv) 深度定制，做了中文字体适配与排版打磨，用 **XeLaTeX** 编译，告别字体缺失与排版错位，让你专注内容本身。
+> **这不是又一个 LaTeX 简历模板。**
+> 这是我们共同设计下诞生的、彻底重新构想的中文简历——用 Typst 写成，以 modern SaaS 设计语言重塑每一寸像素。
+>
+> 圆角卡片。Soft blue 高亮面板。Information card 布局。Content highlight panel。
+> 一切为了让你打开 PDF 的那一刻，心跳加速半拍。
 
 ![Preview](./template_cn_blue.png)
 
-## 为什么选它
+## 我们为什么要重写
 
-- **macOS 原生字体，零配置开跑** —— 不再为「找不到 SimSun / SimHei」报错抓狂，全部改用系统自带的 `STSong / Songti SC / Heiti SC / Kaiti SC / STFangsong / PingFang SC`，装完 MacTeX 直接 `make`，PDF 秒出。
-- **双编译消除 rerun 警告** —— Makefile 自动连跑两次 `xelatex`，hyperref 与交叉引用的警告一次性干掉，强迫症福音。
-- **细节打磨到位** —— `\twoline` 辅助宏解决日期栏两行对齐、软连字符修复 Overfull hbox、奖项内嵌描述参数让左右栏等高对齐，每一处都经得起放大镜检视。
-- **主题随心切换** —— 默认 `blue`，一行改成 `orange / red / green / grey / roman`，风格由你定。
+LaTeX 简历已经服役多年，它强大、古老、值得尊敬——但它属于一个排版先于交互的时代。
 
-## 本分支说明
+我们想要的是：**像 Linear / Vercel / Notion 一样呼吸的简历**。每一张卡片都是一个独立的叙事单元，每一个高亮面板都在告诉你「看这里」，每一道圆角都在说「我们是有审美的」。
 
-基于上游 [geekplux/cv_resume](https://github.com/geekplux/cv_resume) 做了以下修改，**仅供 macOS 使用**。Windows / Linux 用户请使用上游原版。
+所以我们用 Typst，从零开始，把传统时间线简历，翻译成 modern SaaS 视觉语言。
 
-1. **字体配置 macOS 化**：删除 `ifplatform`、`\ifwindows` 分支及对 Windows 字体的引用，统一改用 macOS 系统自带中文字体，开箱即用。
-2. **Makefile 双编译**：默认连续运行两次 `xelatex`，构建前自动 `clean`。
-3. **修复 Overfull \hbox**：在 `netjsongraph.js` 等长词中插入软连字符 `\-` 允许断词，视觉无影响。
+## 设计语言（Design Tokens）
 
-## 特性
+| 令牌 | 值 | 角色 |
+|------|------|------|
+| `accent` | `#2563EB` (blue-600) | 主强调色，章节标题、药丸标签 |
+| `accent-dark` | `#1D4ED8` (blue-700) | 深强调，姓名、链接 |
+| `page-bg` | `#F5F9FF` | 极淡蓝页面底，柔软不刺眼 |
+| `card-bg` | `#FFFFFF` | 卡片白底，圆角 10pt |
+| `card-border` | `#DBEAFE` (blue-100) | 卡片浅蓝描边，几乎看不见 |
+| `panel-bg` | `#EFF6FF` (blue-50) | 高亮面板 soft blue |
+| `panel-border` | `#BFDBFE` (blue-200) | 面板描边 |
+| `muted` | `#64748B` (slate-500) | 次要文字 |
+| `ink` | `#0F172A` (slate-900) | 主文字 |
 
-- 字体族按中文习惯命名快捷宏：`\song / \fs / \yh / \hei / \kai`
-- 字号宏齐全：`\chuhao` ~ `\qihao`（初号到七号）
-- 页面边距通过 `\usepackage[scale=0.9]{geometry}` 的 `scale` 调整
-- 默认主题 `blue`，可在 `\moderncvtheme[blue]{classic}` 处切换
+## 现代 SaaS 设计要素，全部到位
+
+### 1. Rounded Card Container · 圆角卡片容器
+
+每个章节（工作、教育、项目……）都是一张独立的**圆角白卡**。`radius: 10pt` 的弧度刚好——不卡通，也不刻板。`stroke: 0.75pt blue-100` 描边若有若无，让卡片在 soft blue 页底上「浮」起来。
+
+### 2. Soft Blue Background Card · 信息卡片布局
+
+头部用一张大卡片承载**全部个人信息**：圆角裁剪的头像框 + 24pt 加粗姓名 + SanZhang 拼音 + 生日药丸，再加六行清晰的「标签 + 药丸」联系信息。整张卡就是一块 information card，像 SaaS 产品后台的 profile 面板。
+
+### 3. Content Highlight Panel · 高亮面板
+
+需要强调的内容——所获奖项、开源项目、发表论文——放进 `panel-bg #EFF6FF` 的 **soft blue 圆角面板**。视觉上一眼锁定重点，又不会像 `<mark>` 黄底那样喧宾夺主。
+
+### 4. Modern SaaS Style · 处处见细节
+
+- **章节标题**：13pt Heiti SC 加粗 + 强调色文字 + 下方 30pt×2.5pt 的 accent 色短粗下划线。像 SaaS 产品里的 section header，干练有力。
+- **日期药丸**：每条经历的日期用浅蓝圆角药丸承载，紧凑且易扫读。
+- **技能 mini-card**：四张并列的 soft blue 小卡，类别名加粗 + 描述，hover-ready 的视觉密度。
+- **项目链接**：accent 色 + `https://` 可点击，科研/开源一目了然。
+
+## 与 LaTeX 版的对比
+
+| 维度 | LaTeX 版 | Typst Modern SaaS 版 |
+|------|----------|----------------------|
+| 编译速度 | 数十秒到数分钟（含字体索引） | **毫秒级**增量编译，所见即所得 |
+| 排版哲学 | 经典学术简历，时间线主导 | 卡片化叙事，每个章节独立呼吸 |
+| 视觉语言 | ModernCV 经典色块 | 现代 SaaS 蓝调 + 圆角 + 高亮面板 |
+| 字体方案 | macOS 系统字体 + xeCJK | **macOS 原生中文字体**，fontspec 直读 |
+| 学习曲线 | LaTeX 命令 + xeCJK 坑 | Typst 标记语言，**函数化组件**，复用即组合 |
+| 适合谁 | 喜欢传统排版的工程师 | 想要**产品级视觉**的产品人 / 设计师 / 工程师 |
 
 ## 文件结构
 
 ```
 cv_resume/
-├── template_cn_blue.tex   # 模板主文件，编辑此文件即可
-├── template_cn_blue.pdf   # 编译产物示例
-├── template_cn_blue.png   # 预览图
-├── avatar.png             # 简历头像，替换为自己的图片
-├── Makefile               # 编译入口
-├── LICENSE                # MIT 协议
-└── README.md
+├── template_cn_blue.tex      # LaTeX 版（master 分支）
+├── template_cn_blue.pdf
+├── template_cn_blue.typ      # ← 你在这里。Typst Modern SaaS 版
+├── template_cn_blue.pdf      #   编译产物
+├── avatar.png                # 头像，替换即可
+├── Makefile                  # LaTeX 编译入口
+└── README.md                 # 本文件
 ```
-
-## 环境要求
-
-- macOS（仅在 macOS 上测试通过）
-- 完整的 TeX 发行版，推荐 [MacTeX](http://www.tug.org/mactex/)（自带 `xelatex`、`moderncv`、`xeCJK`、`etoolbox`）
-- 系统自带中文字体（macOS 默认全部预装）：
-  - `STSong`、`Songti SC`
-  - `Heiti SC`、`STHeiti`
-  - `Kaiti SC`、`Kai`
-  - `STFangsong`
-  - `PingFang SC`
 
 ## 快速开始
 
-### 1. 安装 MacTeX
+### 1. 安装 Typst
 
 ```bash
-brew install --cask mactex
+brew install typst
 ```
 
-或前往 [MacTeX 官网](http://www.tug.org/mactex/) 下载 `.pkg` 安装包。
-
-> MacTeX 体积较大（约 5 GB+）。轻量方案可装 [BasicTeX](http://www.tug.org/mactex/morepackages.html) 后用 `tlmgr install moderncv xecjk etoolbox` 单独安装所需宏包。
+或参考 [Typst 官网](https://typst.app) 获取其他平台的安装方式。
 
 ### 2. 编译
 
 ```bash
-make
+typst compile template_cn_blue.typ
 ```
 
-`Makefile` 内部连续调用两次 `xelatex`，编译成功后在当前目录生成 `template_cn_blue.pdf`。
+就这么一行。**没有字体配置、没有宏包管理、没有双编译**——Typst 在编译时自动读取系统字体，0.14.0 版本对 CJK 支持已经非常成熟。
 
-### 3. 清理中间产物
+### 3. 实时预览（推荐）
 
 ```bash
-make clean
+typst watch template_cn_blue.typ
 ```
 
-删除 `.aux / .log / .out / .pdf` 等临时文件。
+边改边看，每次保存自动重新编译——这才是 modern 的写简历方式。
 
-### 4. 自定义内容
+### 4. 替换你的内容
 
-直接编辑 `template_cn_blue.tex`：
+直接编辑 `template_cn_blue.typ`：
 
-- **个人信息**：文件顶部 `\firstname / \familyname / \mobile / \email / \photo` 等命令
-- **章节内容**：`\begin{document}` 之后的 `\section{...}` 块
-- **头像**：替换根目录下的 `avatar.png`，保持文件名不变（或修改 `\photo[64pt]{avatar.png}`）
+- **头像**：替换 `avatar.png`，文件名不变即可
+- **个人信息**：搜索 `张三` / `18888888888` / `me@resume.com` 等替换
+- **章节内容**：找到对应 `#section-title[...]` 下面的 `#entry(...)` / `#project(...)` / `#skill-card(...)` 改写
+- **配色**：调整顶部 `色彩系统` 区域的色值，全局自动联动
 
-## Troubleshooting
+## 字体方案
 
-### `Font ... not found`
+Typst 直接读 macOS 系统字体，**无需任何额外配置**：
 
-确认本机是否装了对应字体：
+- 正文：`Songti SC / STSong`（宋体，衬线，沉稳）
+- 标题/类别：`Heiti SC`（黑体，无衬线，强调）
 
-```bash
-fc-list :lang=zh-cn | grep -iE "(STSong|Songti SC|Heiti SC|Kaiti SC|STFangsong|PingFang SC)"
-```
+如需切换无衬线全局体验，把 `#set text(font: ("Songti SC", "STSong"), ...)` 改为 `#set text(font: ("PingFang SC",), ...)` 即可。
 
-若某个字体缺失，可在 `template_cn_blue.tex` 顶部替换为同类其他 macOS 字体。
+## 设计哲学
 
-### `! LaTeX Error: File 'moderncv.cls' not found`
+> **简历不是论文，简历是产品页面。**
 
-TeX 发行版没装 moderncv 宏包。BasicTeX 用户需手动安装：
+- **呼吸感**：每张卡片之间留 6pt 空白，让眼睛有地方休息
+- **信息密度**：单列流式布局，可扫读率远高于传统时间线
+- **视觉层级**：accent 色只出现在真正重要的位置——章节标题、链接、药丸标签。**克制即高级**
+- **可定制**：所有视觉令牌集中在文件顶部，改一处全站联动
 
-```bash
-sudo tlmgr install moderncv xecjk etoolbox ifplatform fontspec
-```
+## 我们相信
 
-### `Overfull \hbox` 警告
+工具应该让人忘记工具的存在。Typst 让排版回归排版本身——你只想好好写一份简历，不该为字体报错、宏包缺失、双编译警告浪费一分钟。
 
-通常是某个英文长词（URL、项目名）放不下。在词中插入软连字符 `\-` 允许断词，例如 `netjsongraph\-.js`。
+这份模板，是我们想收到的简历的样子。也是我们想写的简历的样子。
 
-### 中文标点显示不正常
+---
 
-确认源文件保存为 **UTF-8** 编码，并且用 `xelatex` 而非 `pdflatex` 编译。
-
-## 上游与致谢
-
-- 原始模板：[geekplux/cv\_resume](https://github.com/geekplux/cv_resume)
-- 底层模板：[ModernCV](https://github.com/moderncv/moderncv) by Xavier Danaux
-
-## LICENSE
-
-**cv_resume** © [geekplux](https://github.com/geekplux)，本分支继承上游的 [MIT](./LICENSE) 许可证。
+**cv_resume · Typst Modern SaaS Edition**
+继承上游 [geekplux/cv_resume](https://github.com/geekplux/cv_resume) 的 [MIT](./LICENSE) 许可证。
+在我们共同设计下诞生。
