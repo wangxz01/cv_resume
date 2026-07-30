@@ -1,264 +1,235 @@
 // ============================================================================
-//  cv_resume · Typst Modern SaaS Edition — 一页双列版
+//  cv_resume · Typst Editorial Premium Edition
 //  在我们共同设计下诞生的全新版本
-//  设计语言：左窄右宽双列平行排布 · 每个大模块用 soft blue 背景凸显
-//           rounded module panels · information sidebar · modern SaaS style
+//  设计语言：出血式深海军蓝全高侧栏 + 白底主栏 · PingFang 无衬线
+//           克制单色配色 · 编辑级排版 · 填满整页 A4
 // ============================================================================
 
-// ---------- 色彩系统（modern SaaS blue）----------
-#let accent       = rgb("2563EB")
-#let accent-dark  = rgb("1D4ED8")
-#let page-bg      = rgb("FFFFFF")   // 白底，让模块背景凸显
-#let panel-bg     = rgb("EFF6FF")   // 模块 soft blue 背景
-#let panel-border = rgb("BFDBFE")
-#let chip-bg      = rgb("DBEAFE")   // 药丸更深一点的蓝
-#let muted        = rgb("64748B")
-#let ink          = rgb("0F172A")
-#let ink-soft     = rgb("334155")
+// ---------- 色彩系统（premium navy editorial）----------
+#let navy        = rgb("17233B")
+#let navy-light  = rgb("1E2E4D")
+#let side-line   = rgb("2C3E5F")
+#let side-text   = rgb("E6EBF2")
+#let side-muted  = rgb("9AA7BD")
+#let side-accent = rgb("8FB4E8")
+#let ink         = rgb("16202E")
+#let body-txt    = rgb("3A4552")
+#let muted       = rgb("7A8391")
+#let accent      = rgb("1E3A66")
+#let rule        = rgb("DFE3E8")
+#let soft        = rgb("F2F5F9")
 
-// ---------- 页面与文字 ----------
-#set page(
-  paper: "a4",
-  margin: (left: 1.3cm, right: 1.3cm, top: 1.1cm, bottom: 1.1cm),
-  fill: page-bg,
-)
-
-#set text(
-  font: ("Songti SC", "STSong"),
-  size: 8.8pt,
-  lang: "zh",
-  region: "cn",
-  fill: ink,
-)
-
-#set par(leading: 0.66em, spacing: 0.62em, justify: true)
-
-// ============================================================================
-//  可复用组件
-// ============================================================================
-
-// 大模块 —— soft blue 圆角面板，用背景凸显
-#let module(title, body) = block(
-  width: 100%,
-  fill: panel-bg,
-  stroke: (thickness: 0.5pt, paint: panel-border),
-  radius: 9pt,
-  inset: (x: 11pt, y: 9pt),
-  spacing: 5pt,
-)[
-  #block(spacing: 4pt)[
-    #text(font: "Heiti SC", weight: "bold", size: 10.5pt, fill: accent-dark, tracking: 0.3pt)[#title]
-    #v(-3pt)
-    #line(length: 22pt, stroke: (thickness: 2pt, paint: accent))
-  ]
-  #body
+// ---------- 侧栏组件 ----------
+#let ssection(title) = block(width: 100%, spacing: 8pt)[
+  #text(font: "PingFang SC", weight: "medium", size: 9.5pt, fill: side-accent, tracking: 2.5pt)[#title]
+  #v(-4pt)
+  #line(length: 100%, stroke: (thickness: 0.5pt, paint: side-line))
 ]
 
-// 联系信息行：标签( muted ) + 值
-#let contact-item(label, value) = block(width: 100%, spacing: 3pt)[
-  #text(size: 8pt, fill: muted, weight: "bold")[#label]
-  #h(5pt)
-  #text(size: 8pt, fill: ink-soft)[#value]
+#let scontact(label, value) = block(width: 100%, spacing: 7pt)[
+  #text(size: 8pt, fill: side-muted)[#label]
+  #v(-2pt)
+  #text(size: 8.8pt, fill: side-text)[#value]
 ]
 
-// 时间线条目：日期药丸 + 标题行 + 正文（紧凑）
+#let sskill(category, desc) = block(width: 100%, spacing: 7pt)[
+  #text(size: 9pt, fill: side-text, weight: "bold")[#category]
+  #v(-2pt)
+  #text(size: 8.4pt, fill: side-muted)[#desc]
+]
+
+// ---------- 主栏组件 ----------
+#let msection(title) = block(width: 100%, spacing: 9pt)[
+  #text(font: "PingFang SC", weight: "bold", size: 12.5pt, fill: accent, tracking: 1.5pt)[#title]
+  #v(-4pt)
+  #line(length: 100%, stroke: (thickness: 0.7pt, paint: rule))
+]
+
 #let entry(
   date: "",
   title: "",
   org: "",
   detail: "",
   body: none,
-) = block(width: 100%, spacing: 3pt)[
-  #box(
-    fill: chip-bg,
-    radius: 4pt,
-    inset: (x: 6pt, y: 2pt),
-  )[#text(size: 7.6pt, fill: accent-dark, weight: "bold")[#date]]
-  #h(5pt)
-  #text(weight: "bold", size: 9.6pt, fill: ink)[#title]
+) = block(width: 100%, spacing: 4pt)[
+  #text(font: "PingFang SC", weight: "bold", size: 10.5pt, fill: ink)[#title]
   #if org != "" [
-    #h(3pt)
-    #text(size: 8.6pt, fill: muted)[· #org]
+    #h(4pt)
+    #text(size: 9pt, fill: body-txt)[#org]
   ]
   #if detail != "" [
-    #h(3pt)
-    #text(size: 8.6pt, fill: accent)[#detail]
-  ]
-  #if body != none [
-    #v(1pt)
-    #text(size: 8.6pt, fill: ink-soft)[#body]
-  ]
-]
-
-// 项目条目（紧凑，name + link + 一句话）
-#let project(name, desc, href: "") = block(width: 100%, spacing: 2pt)[
-  #text(weight: "bold", size: 8.9pt, fill: accent-dark)[#name]
-  #if href != "" [
     #h(4pt)
-    #text(size: 7.8pt, fill: accent)[#link("https://" + href)[#href]]
+    #text(size: 8.6pt, fill: muted)[#detail]
   ]
-  #text(size: 8.4pt, fill: ink-soft)[ #desc]
-]
-
-// 技能条目（侧栏紧凑）
-#let skill-item(category, desc) = block(width: 100%, spacing: 2pt)[
-  #text(font: "Heiti SC", weight: "bold", size: 8.6pt, fill: accent-dark)[#category]
-  #v(-2pt)
-  #text(size: 8.2pt, fill: ink-soft)[#desc]
-]
-
-// ============================================================================
-//  正文 —— 双列平行排布
-// ============================================================================
-#grid(
-  columns: (5.8cm, 12cm),
-  column-gutter: 12pt,
-  align: top,
-)[
-  // ==================== 左侧栏 ====================
-  // 个人信息
-  #module[个人信息][
-    #align(center)[
-      #box(
-        fill: chip-bg,
-        radius: 50%,
-        clip: true,
-        width: 1.7cm,
-        height: 1.7cm,
-      )[#image("avatar.png", width: 1.7cm, height: 1.7cm, fit: "cover")]
-    ]
-    #v(4pt)
-    #align(center)[
-      #text(font: "Heiti SC", weight: "bold", size: 19pt, fill: ink)[张三]
-    ]
-    #v(1pt)
-    #align(center)[
-      #text(size: 9pt, fill: muted)[SanZhang]
-    ]
+  #h(1fr)
+  #text(size: 8.6pt, fill: muted)[#date]
+  #if body != none [
     #v(3pt)
-    #align(center)[
-      #box(fill: chip-bg, radius: 4pt, inset: (x: 6pt, y: 2pt))[
-        #text(size: 7.8pt, fill: accent-dark)[1990/11/11]
-      ]
-    ]
-  ]
-
-  #v(6pt)
-
-  // 联系方式
-  #module[联系方式][
-    #contact-item("手机", "18888888888")
-    #contact-item("邮箱", "me@resume.com")
-    #contact-item("GitHub", "github.com/geekplux")
-    #contact-item("微信", "xxxx")
-    #contact-item("博客", "geekplux.com")
-    #contact-item("QQ", "123456")
-  ]
-
-  #v(6pt)
-
-  // 技能
-  #module[技能][
-    #skill-item("前端", [熟练掌握前端技术栈，熟悉各类工具与原理。])
-    #v(4pt)
-    #skill-item("后端", [熟练掌握后端技术，熟悉架构与原理。])
-    #v(4pt)
-    #skill-item("数据", [掌握数据处理与数据库，熟悉数据建模。])
-    #v(4pt)
-    #skill-item("其他", [熟练使用 Git / Vim / Emacs / Makefile。])
-  ]
-][
-  // ==================== 右侧主栏 ====================
-  // 工作经历
-  #module[工作经历][
-    #entry(
-      date: "2017.01 - 2017.12",
-      title: "不长不短的公司名称",
-      org: "可爱的项目",
-      detail: "keaidexiangmu.com",
-      body: [负责 xxx 的开发和维护，运用 yyy 技术解决 zzz 的重大问题，积极参与开源社区贡献。],
-    )
-    #v(4pt)
-    #entry(
-      date: "2016.01 - 2016.12",
-      title: "好长的公司名称",
-      org: "有趣的项目",
-      detail: "youqudexiangmu.com",
-      body: [按照领导要求编程，做出了让领导满意的作品，为公司做出贡献。],
-    )
-    #v(4pt)
-    #entry(
-      date: "2015.01 - 2015.12",
-      title: "不知道叫什么的公司名称",
-      org: "不可告人的项目",
-      detail: "bukegaoren.com",
-      body: [独立编写项目简介，出色完成凑字数工作，获最佳凑字数员工奖。],
-    )
-  ]
-
-  #v(6pt)
-
-  // 教育经历
-  #module[教育经历][
-    #entry(
-      date: "2011.09 - 2015.06",
-      title: "本科",
-      org: "尼姑庵大学",
-      detail: "计算机科学与技术",
-    )
-    #v(2pt)
-    #block(
-      width: 100%,
-      fill: rgb("FFFFFF"),
-      radius: 6pt,
-      inset: (x: 9pt, y: 6pt),
-      spacing: 2pt,
-    )[
-      #text(size: 8pt, fill: accent-dark, weight: "bold")[所获奖项]
-      #v(1pt)
-      #text(size: 8.2pt, fill: ink-soft)[
-        • 最快编程大师一等奖　• 最强编程大师金奖 \
-        • 第 x 届「编程杯」gayhub 赛区一等奖 \
-        • 国家奖学金 / 三好学生 / 学生会主席 / *获得女朋友一个*
-      ]
-    ]
-    #v(4pt)
-    #entry(
-      date: "2015.09 - 2018.06",
-      title: "硕士",
-      org: "和尚庙大学",
-      detail: "软件工程 · 实验室 XXX 导师 XXX",
-      body: [主要研究人工智能、图形学、编译原理等方向。],
-    )
-  ]
-
-  #v(6pt)
-
-  // 项目
-  #module[项目][
-    #text(font: "Heiti SC", weight: "bold", size: 8.6pt, fill: ink-soft)[科研]
-    #v(2pt)
-    #project("FFF-TNT", [建立深度学习模型预测 TNT 威力值。])
-    #v(2pt)
-    #project("NASA", [研究如何把字数凑得更加优雅自然。])
-    #v(4pt)
-    #text(font: "Heiti SC", weight: "bold", size: 8.6pt, fill: ink-soft)[开源]
-    #v(2pt)
-    #project("markvis", [markdown 中生成可视化图表，GitHub 1000 stars。], href: "markvis.js.org")
-    #v(2pt)
-    #project("netjsongraph.js", [力导向图可视化无线路由图谱数据。], href: "github.com/netjson/netjsongraph.js")
-    #v(2pt)
-    #project("typing", [Hexo 静态博客主题。], href: "github.com/geekplux/hexo-theme-typing")
-    #v(2pt)
-    #project("UnityVis", [Unity 中的基本可视化图表。], href: "github.com/geekplux/Basic-Visualization-in-Unity")
-  ]
-
-  #v(6pt)
-
-  // Publications
-  #module[Publications][
-    #text(size: 8pt, fill: accent-dark, weight: "bold")[已录用]
-    #h(5pt)
-    #text(size: 8.5pt, fill: ink-soft)[张三，李四，王麻子. 基于 LaTeX 的简历凑字数研究\[C\], CVChina 2017.]
+    #text(size: 9pt, fill: body-txt)[#body]
   ]
 ]
+
+#let project(name, desc, href: "") = block(width: 100%, spacing: 2pt)[
+  #text(weight: "bold", size: 9.4pt, fill: ink)[#name]
+  #if href != "" [
+    #h(5pt)
+    #text(size: 8.2pt, fill: accent)[#link("https://" + href)[#href]]
+  ]
+  #text(size: 8.8pt, fill: body-txt)[ — #desc]
+]
+
+// ============================================================================
+//  页面：出血式深海军蓝全高侧栏（绘制于页面背景）
+// ============================================================================
+#set text(
+  font: ("PingFang SC", "Songti SC"),
+  size: 9pt,
+  lang: "zh",
+  region: "cn",
+  fill: body-txt,
+)
+#set par(leading: 0.95em, spacing: 0.9em, justify: true)
+
+#set page(
+  paper: "a4",
+  margin: (left: 7.2cm, right: 1.6cm, top: 1.5cm, bottom: 1.5cm),
+  fill: rgb("FFFFFF"),
+  background: place(
+    left + top,
+    block(width: 6.4cm, height: 100%, fill: navy, inset: (x: 18pt, y: 42pt))[
+      // 头像（圆形 + 浅蓝描边环）
+      #align(center)[
+        #box(
+          fill: navy-light,
+          radius: 50%,
+          stroke: (thickness: 2pt, paint: side-accent),
+          clip: true,
+          width: 2.1cm,
+          height: 2.1cm,
+        )[#image("avatar.png", width: 2.1cm, height: 2.1cm, fit: "cover")]
+      ]
+      #v(10pt)
+      #align(center)[
+        #text(font: "PingFang SC", weight: "bold", size: 23pt, fill: rgb("FFFFFF"))[张　三]
+      ]
+      #v(3pt)
+      #align(center)[
+        #text(size: 9.5pt, fill: side-accent, tracking: 3pt)[SAN ZHANG]
+      ]
+      #v(4pt)
+      #align(center)[
+        #text(size: 8.6pt, fill: side-muted)[1990 / 11 / 11]
+      ]
+
+      #v(20pt)
+
+      #ssection[联系方式]
+      #scontact("手机", "18888888888")
+      #scontact("邮箱", "me@resume.com")
+      #scontact("GitHub", "github.com/geekplux")
+      #scontact("微信", "xxxx")
+      #scontact("博客", "geekplux.com")
+      #scontact("QQ", "123456")
+
+      #v(20pt)
+
+      #ssection[专业技能]
+      #sskill("前端", [熟练掌握前端技术栈，熟悉各类工具与原理。])
+      #sskill("后端", [熟练掌握后端技术，熟悉系统架构与原理。])
+      #sskill("数据", [掌握数据处理与数据库，熟悉数据建模。])
+      #sskill("工程", [熟练使用 Git / Vim / Emacs / Makefile。])
+
+      #v(20pt)
+
+      #ssection[语言能力]
+      #sskill("中文", [母语，书面与口头表达俱佳。])
+      #sskill("英语", [流利，可阅读技术文档与日常交流。])
+
+      #v(20pt)
+
+      #ssection[兴趣爱好]
+      #text(size: 8.6pt, fill: side-muted)[开源贡献 · 篮球 · 写作 · 摄影]
+    ],
+  ),
+)
+
+// ============================================================================
+//  主栏内容（右侧白底区域）
+// ============================================================================
+#text(font: "PingFang SC", weight: "bold", size: 12.5pt, fill: accent, tracking: 1.5pt)[个人总结]
+#v(-4pt)
+#line(length: 100%, stroke: (thickness: 0.7pt, paint: rule))
+#text(size: 9pt, fill: body-txt)[
+  一名注重工程质量与用户体验的开发者，热衷开源与技术分享。擅长把复杂问题拆解为清晰可维护的方案，追求代码与产品体验的极致平衡。乐于在团队协作中推动技术落地，持续关注前端工程化与可视化领域的前沿实践，期望用技术创造真正的价值。
+]
+
+#v(14pt)
+
+#msection[工作经历]
+#entry(
+  date: "2017.01 - 2017.12",
+  title: "高级前端工程师",
+  org: "不长不短的公司名称",
+  detail: "可爱的项目",
+  body: [负责核心产品的开发与维护，运用现代化技术栈解决了关键性能瓶颈，主导核心模块重构与工程化升级，积极参与开源社区贡献。],
+)
+#v(7pt)
+#entry(
+  date: "2016.01 - 2016.12",
+  title: "前端工程师",
+  org: "好长的公司名称",
+  detail: "有趣的项目",
+  body: [按照产品目标完成高质量交付，优化关键路径渲染性能，建立组件化开发规范，获得团队与用户一致认可。],
+)
+#v(7pt)
+#entry(
+  date: "2015.01 - 2015.12",
+  title: "开发工程师",
+  org: "不知道叫什么的公司名称",
+  detail: "不可告人的项目",
+  body: [独立完成核心功能开发，建立工程规范与代码审查流程，出色完成各项任务并获年度最佳员工。],
+)
+
+#v(14pt)
+
+#msection[教育经历]
+#entry(
+  date: "2015.09 - 2018.06",
+  title: "硕士 · 软件工程",
+  org: "和尚庙大学",
+  detail: "实验室 XXX · 导师 XXX",
+  body: [主要研究人工智能、图形学、编译原理等方向，发表多篇学术论文。],
+)
+#v(7pt)
+#entry(
+  date: "2011.09 - 2015.06",
+  title: "本科 · 计算机科学与技术",
+  org: "尼姑庵大学",
+)
+#v(3pt)
+#block(
+  width: 100%,
+  fill: soft,
+  radius: 4pt,
+  inset: (x: 10pt, y: 7pt),
+  spacing: 2pt,
+)[
+  #text(size: 8.2pt, fill: accent, weight: "bold")[所获奖项　]
+  #text(size: 8.4pt, fill: body-txt)[最快编程大师一等奖 · 最强编程大师金奖 · 第 x 届「编程杯」一等奖 · 国家奖学金 · 三好学生 · 学生会主席]
+]
+
+#v(14pt)
+
+#msection[项目经历]
+#project("markvis", [在 markdown 中直接生成可视化图表的插件，GitHub 1000 stars], href: "markvis.js.org")
+#v(4pt)
+#project("netjsongraph.js", [用力导向图可视化无线路由图谱数据], href: "github.com/netjson/netjsongraph.js")
+#v(4pt)
+#project("typing", [Hexo 静态博客主题], href: "github.com/geekplux/hexo-theme-typing")
+#v(4pt)
+#project("UnityVis", [Unity 中的基本可视化图表库], href: "github.com/geekplux/Basic-Visualization-in-Unity")
+
+#v(14pt)
+
+#msection[学术发表]
+#text(size: 9pt, fill: body-txt)[张三，李四，王麻子. 基于 LaTeX 的简历凑字数研究\[C\]. CVChina, 2017.]
